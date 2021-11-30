@@ -11,4 +11,11 @@
     <Folder Include="Views\Home\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BetterNews.ApplicationCore\BetterNews.ApplicationCore.csproj" />
+    <ProjectReference Include="..\BetterNews.Infrastructure\BetterNews.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
 </Project>
