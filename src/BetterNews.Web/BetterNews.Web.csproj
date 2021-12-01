@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BetterNews.ApplicationCore\BetterNews.ApplicationCore.csproj" />
-    <ProjectReference Include="..\BetterNews.Infrastructure\BetterNews.Infrastructure.csproj" />
+    <ProjectReference Include="..\BetterNews.Services\BetterNews.Services.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

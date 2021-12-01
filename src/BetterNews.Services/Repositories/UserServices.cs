@@ -1,22 +1,22 @@
 ﻿using AutoMapper;
 
-public class AuthenticationServices : IAuthenticationServices
+public class UserServices : IUserServices
 {
-    private readonly IAuthenticationRepository _authenticationRepository;
+    private readonly IUserRepository _authenticationRepository;
     private readonly IMapper _mapper;
     private readonly HttpContextHelper _httpContextHelper;
 
-    public AuthenticationServices(IAuthenticationRepository authenticationRepository, IMapper mapper, HttpContextHelper httpContextHelper) 
+    public UserServices(IUserRepository authenticationRepository, IMapper mapper, HttpContextHelper httpContextHelper) 
         => (_authenticationRepository, _mapper, _httpContextHelper) = (authenticationRepository, mapper, httpContextHelper);
 
     public async Task<HttpResponseViewModel> GetByIdAsync(int? id) 
-        => await _authenticationRepository.GetByIdAsync(id, _httpContextHelper.GetAuthenticatedUserToken());
+        => await _authenticationRepository.GetByIdAsync(id, await _httpContextHelper.GetAuthenticatedUserToken());
 
     public async Task<HttpResponseViewModel> SignUpAsync(CreateUserInputModel inputModel)
     {
         HttpLoginResponseViewModel responseViewModel = await _authenticationRepository.SignUpAsync(inputModel);
         if (responseViewModel.Success)
-            _httpContextHelper.SetAuthenticatedUser(responseViewModel.GeneratedToken);
+            await _httpContextHelper.SetAuthenticatedUserAsync(responseViewModel.GeneratedToken);
 
         return _mapper.Map<HttpResponseViewModel>(responseViewModel);
     }
@@ -25,11 +25,16 @@ public class AuthenticationServices : IAuthenticationServices
     {
         HttpLoginResponseViewModel responseViewModel = await _authenticationRepository.SignInAsync(inputModel);
         if (responseViewModel.Success)
-            _httpContextHelper.SetAuthenticatedUser(responseViewModel.GeneratedToken);
+            await _httpContextHelper.SetAuthenticatedUserAsync(responseViewModel.GeneratedToken);
 
         return _mapper.Map<HttpResponseViewModel>(responseViewModel);
     }
+    public async Task SignOutAsync()
+    {
+        await _authenticationRepository.SignOutAsync();
+        await _httpContextHelper.SignOutAuthenticatedUserAsync();
+    }
 
     public async Task<ErrorViewModel> UpdateAsync(CreateUserInputModel inputModel) 
-        => await _authenticationRepository.UpdateAsync(inputModel, _httpContextHelper.GetAuthenticatedUserToken());
+        => await _authenticationRepository.UpdateAsync(inputModel, await _httpContextHelper.GetAuthenticatedUserToken());
 }

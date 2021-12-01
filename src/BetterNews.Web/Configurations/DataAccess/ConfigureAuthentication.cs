@@ -11,6 +11,7 @@ public static class ConfigureAuthentication
                 options.AccessDeniedPath = "/Authentication/AccessDenied";
                 options.SlidingExpiration = true;
             });
+        services.AddScoped<HttpContextHelper>();
 
         return services;
     }

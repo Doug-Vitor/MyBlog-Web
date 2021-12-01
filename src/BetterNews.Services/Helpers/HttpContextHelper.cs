@@ -9,25 +9,23 @@ public class HttpContextHelper
 
     public HttpContextHelper(IHttpContextAccessor contextAccessor) => _contextAccessor = contextAccessor;
 
-    public void SetAuthenticatedUser(string token)
+    public async Task SetAuthenticatedUserAsync(string token)
     {
         ClaimsIdentity identity = new(CookieAuthenticationDefaults.AuthenticationScheme);
-        identity.AddClaim(new()"BearerToken", token));
-        ClaimsPrincipal principal = new ClaimsPrincipal(identity);
-
-        _contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+        identity.AddClaim(new("BearerToken", token));
+        await _contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new(identity));
     }
 
-    public string GetAuthenticatedUserToken()
+    public async Task<string> GetAuthenticatedUserToken()
     {
         string token = _contextAccessor.HttpContext.User.FindFirst(claim => claim.Type == "BearerToken").Value;
 
         if (string.IsNullOrWhiteSpace(token))
-            LogoutAuthenticatedUser(); // Ensure user is not authenticated
+            await SignOutAuthenticatedUserAsync(); // Ensure user is not authenticated
 
         return token;
     }
 
-    public async Task LogoutAuthenticatedUser() 
+    public async Task SignOutAuthenticatedUserAsync() 
         => await _contextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 }
