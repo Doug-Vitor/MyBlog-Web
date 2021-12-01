@@ -1,6 +1,7 @@
 var applicationBuilder = WebApplication.CreateBuilder(args);
 
 applicationBuilder.Services.AddControllersWithViews();
+applicationBuilder.Services.AddHttpClient();
 applicationBuilder.Services.AddHttpContextAccessor();
 applicationBuilder.Services.ConfigureDependencies(applicationBuilder.Configuration);
 

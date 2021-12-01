@@ -15,19 +15,27 @@ public class UsersController : Controller
         return responseViewModel.Success ? View(responseViewModel.UserViewModel) : RedirectToErrorAction(responseViewModel.ErrorViewModel);
     }
 
+    [HttpGet]
+    public IActionResult SignUp() => View();
+
+    [HttpPost]
     public async Task<IActionResult> SignUp(CreateUserInputModel inputModel)
     {
         HttpResponseViewModel responseViewModel = await _userServices.SignUpAsync(inputModel);
         return responseViewModel.Success ? RedirectToHomeIndex() : RedirectToErrorAction(responseViewModel.ErrorViewModel);
     }
 
+    [HttpGet]
+    public IActionResult SignIn() => View();
+
+    [HttpPost]
     public async Task<IActionResult> SignIn(SignInUserModel inputModel)
     {
         HttpResponseViewModel responseViewModel = await _userServices.SignInAsync(inputModel);
         return responseViewModel.Success ? RedirectToHomeIndex() : RedirectToErrorAction(responseViewModel.ErrorViewModel);
     }
 
-    public async Task<IActionResult> SignOut()
+    public async Task<RedirectToActionResult> SignOut()
     {
         await _userServices.SignOutAsync();
         return RedirectToHomeIndex();
@@ -48,10 +56,8 @@ public class UsersController : Controller
         return viewModel == null ? RedirectToHomeIndex() : RedirectToErrorAction(viewModel);
     }
 
-    private IActionResult RedirectToErrorAction(ErrorViewModel viewModel) =>
-        RedirectToAction(nameof(Error), new { errors = viewModel.ErrorsMessages });
+    private RedirectToActionResult RedirectToErrorAction(ErrorViewModel viewModel) =>
+        RedirectToAction("Error", "Home", viewModel);
 
-    private IActionResult RedirectToHomeIndex() => View("Index", "Home");
-
-    public IActionResult Error(List<string> errors) => View(new ErrorViewModel(errors));
+    private RedirectToActionResult RedirectToHomeIndex() => RedirectToAction("Index", "Home");
 }

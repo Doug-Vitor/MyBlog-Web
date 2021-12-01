@@ -1,0 +1,29 @@
+﻿@model CreateUserInputModel;
+
+@{
+    ViewData["Title"] = "Entrar";
+}
+
+<div>
+    <h2>Entrar</h2>
+    <form asp-action="SignUp">
+        <div class="form-group">
+            <label asp-for="Username" class="col-form-label"></label>
+            <input class="form-control" asp-for="Username" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Email" class="col-form-label"></label>
+            <input class="form-control" asp-for="Email" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Password" class="col-form-label"></label>
+            <input class="form-control" asp-for="Password" />
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-success" value="Confirmar" />
+        </div>
+    </form>
+
+    <p>Já possui um cadastro?<a asp-action="SignIn">Clique aqui!</a></p>
+</div>

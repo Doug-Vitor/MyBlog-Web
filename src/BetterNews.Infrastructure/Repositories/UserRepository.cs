@@ -6,7 +6,7 @@ public class UserRepository : BaseRepository, IUserRepository
     private readonly ApiAuthenticationRoutingConfigurations _routingConfigurations;
 
     public UserRepository(IHttpClientFactory client, IOptions<ApiAuthenticationRoutingConfigurations> routingConfigurations)
-        :base(client) => _routingConfigurations = routingConfigurations.Value;
+        : base(client) =>  _routingConfigurations = routingConfigurations.Value;
 
     public async Task<HttpResponseViewModel> GetByIdAsync(int? id, string token)
     {

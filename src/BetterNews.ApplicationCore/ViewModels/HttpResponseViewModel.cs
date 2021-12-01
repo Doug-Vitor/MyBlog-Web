@@ -8,6 +8,8 @@
     {
     }
 
+    public HttpResponseViewModel(bool success) => Success = success;
+
     public HttpResponseViewModel(bool success, UserViewModel viewModel) 
         => (Success, UserViewModel) = (success, viewModel);
 

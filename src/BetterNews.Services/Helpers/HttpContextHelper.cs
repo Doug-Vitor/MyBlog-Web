@@ -11,6 +11,8 @@ public class HttpContextHelper
 
     public async Task SetAuthenticatedUserAsync(string token)
     {
+        if (_contextAccessor.HttpContext.User.Identity.IsAuthenticated) return;
+
         ClaimsIdentity identity = new(CookieAuthenticationDefaults.AuthenticationScheme);
         identity.AddClaim(new("BearerToken", token));
         await _contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new(identity));
@@ -26,6 +28,9 @@ public class HttpContextHelper
         return token;
     }
 
-    public async Task SignOutAuthenticatedUserAsync() 
-        => await _contextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+    public async Task SignOutAuthenticatedUserAsync()
+    {
+        if (_contextAccessor.HttpContext.User.Identity.IsAuthenticated)
+            await _contextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+    }
 }

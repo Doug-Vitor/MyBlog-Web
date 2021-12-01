@@ -1,5 +1,6 @@
-﻿public class ApiAuthenticationRoutingConfigurations : ApiBaseRoutingConfigurations
+﻿public class ApiAuthenticationRoutingConfigurations
 {
+    public Uri BasePath { get; set; }
     public Uri AuthenticationPath { get; set; }
 
     private Uri GetAuthenticationPath() => new(string.Concat(BasePath, AuthenticationPath));
