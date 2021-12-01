@@ -8,36 +8,36 @@ public class AuthenticationRepository : BaseRepository, IAuthenticationRepositor
     public AuthenticationRepository(IHttpClientFactory client, IOptions<ApiAuthenticationRoutingConfigurations> routingConfigurations)
         :base(client) => _routingConfigurations = routingConfigurations.Value;
 
-    public async Task<HttpResponseViewModel<UserViewModel>> GetByIdAsync(int? id)
+    public async Task<HttpResponseViewModel> GetByIdAsync(int? id)
     {
         HttpRequestMessage request = new(HttpMethod.Get, _routingConfigurations.GetGetUserByIdPath(id));
         HttpResponseMessage response = await Client.CreateClient().SendAsync(request);
 
         string responseJson = await response.Content.ReadAsStringAsync();
-        return response.IsSuccessStatusCode ? new(await responseJson.FromJsonAsync<UserViewModel>())
-            : new(await responseJson.FromJsonAsync<ErrorViewModel>());
+        return response.IsSuccessStatusCode ? new(true)
+            : new(false, await responseJson.FromJsonAsync<ErrorViewModel>());
     }
 
-    public async Task<HttpResponseViewModel<LoginResultViewModel>> SignUpAsync(CreateUserInputModel inputModel)
+    public async Task<HttpLoginResponseViewModel> SignUpAsync(CreateUserInputModel inputModel)
     {
         HttpRequestMessage request = new(HttpMethod.Post, _routingConfigurations.GetSignUpPath());
         request.Content = SetRequestContent(inputModel);
         HttpResponseMessage response = await Client.CreateClient().SendAsync(request);
 
         string responseJson = await response.Content.ReadAsStringAsync();
-        return response.StatusCode == HttpStatusCode.Created ? new(await responseJson.FromJsonAsync<LoginResultViewModel>()) 
-            : new(await responseJson.FromJsonAsync<ErrorViewModel>());
+        return response.StatusCode == HttpStatusCode.Created ? new(true, (await responseJson.FromJsonAsync<LoginResultViewModel>()).Token)
+            : new (false, await responseJson.FromJsonAsync<ErrorViewModel>());
     }
 
-    public async Task<HttpResponseViewModel<LoginResultViewModel>> SignInAsync(SignInUserModel inputModel)
+    public async Task<HttpLoginResponseViewModel> SignInAsync(SignInUserModel inputModel)
     {
         HttpRequestMessage request = new(HttpMethod.Post, _routingConfigurations.GetSignInPath());
         request.Content = SetRequestContent(inputModel);
         HttpResponseMessage response = await Client.CreateClient().SendAsync(request);
 
         string responseJson = await response.Content.ReadAsStringAsync();
-        return response.IsSuccessStatusCode ? new(await responseJson.FromJsonAsync<LoginResultViewModel>())
-            : new(await responseJson.FromJsonAsync<ErrorViewModel>());
+        return response.IsSuccessStatusCode ? new(true, (await responseJson.FromJsonAsync<LoginResultViewModel>()).Token)
+            : new(false, await responseJson.FromJsonAsync<ErrorViewModel>());
     }
 
     public async Task<ErrorViewModel> UpdateAsync(CreateUserInputModel inputModel)

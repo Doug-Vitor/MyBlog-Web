@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterNews.Infrastructure",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterNews.Web", "src\BetterNews.Web\BetterNews.Web.csproj", "{26484ECF-31AC-46E5-A8F1-21FF66D8E569}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterNews.Services", "src\BetterNews.Services\BetterNews.Services.csproj", "{76F3E48C-84A4-44A9-B08D-ACC95B9C0CC3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,10 +34,15 @@ Global
 		{26484ECF-31AC-46E5-A8F1-21FF66D8E569}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26484ECF-31AC-46E5-A8F1-21FF66D8E569}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26484ECF-31AC-46E5-A8F1-21FF66D8E569}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76F3E48C-84A4-44A9-B08D-ACC95B9C0CC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76F3E48C-84A4-44A9-B08D-ACC95B9C0CC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76F3E48C-84A4-44A9-B08D-ACC95B9C0CC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76F3E48C-84A4-44A9-B08D-ACC95B9C0CC3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0FFA4B7A-5C2C-4FC1-88FD-8B9E9D8EE8C8} = {24028733-8564-45FD-A2A3-DB71A288E7BF}
 		{C55AFBA5-4213-4F8E-A188-9D8D5BC071BF} = {24028733-8564-45FD-A2A3-DB71A288E7BF}
 		{26484ECF-31AC-46E5-A8F1-21FF66D8E569} = {24028733-8564-45FD-A2A3-DB71A288E7BF}
+		{76F3E48C-84A4-44A9-B08D-ACC95B9C0CC3} = {24028733-8564-45FD-A2A3-DB71A288E7BF}
 	EndGlobalSection
 EndGlobal

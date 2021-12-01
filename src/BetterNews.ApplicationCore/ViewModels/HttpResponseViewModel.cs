@@ -1,12 +1,14 @@
-﻿public class HttpResponseViewModel<TResponse>
+﻿public class HttpResponseViewModel
 {
-    public TResponse HttpResponse { get; set; }
+    public bool Success { get; set; }
     public ErrorViewModel ErrorViewModel { get; set; }
 
     public HttpResponseViewModel()
     {
     }
 
-    public HttpResponseViewModel(TResponse response) => HttpResponse = response;
-    public HttpResponseViewModel(ErrorViewModel viewModel) => ErrorViewModel = viewModel;
+    public HttpResponseViewModel(bool success) => Success = success;
+
+    public HttpResponseViewModel(bool success, ErrorViewModel errorViewModel) 
+        => (Success, ErrorViewModel) = (success, errorViewModel);
 }

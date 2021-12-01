@@ -1,7 +1,7 @@
 ﻿public interface IAuthenticationRepository
 {
-    Task<HttpResponseViewModel<UserViewModel>> GetByIdAsync(int? id);
-    Task<HttpResponseViewModel<LoginResultViewModel>> SignUpAsync(CreateUserInputModel inputModel);
-    Task<HttpResponseViewModel<LoginResultViewModel>> SignInAsync(SignInUserModel inputModel);
-    Task<ErrorViewModel> UpdateAsync(CreateUserInputModel inputModel);
+    Task<HttpResponseViewModel> GetByIdAsync(int? id, string token);
+    Task<HttpLoginResponseViewModel> SignUpAsync(CreateUserInputModel inputModel);
+    Task<HttpLoginResponseViewModel> SignInAsync(SignInUserModel inputModel);
+    Task<ErrorViewModel> UpdateAsync(CreateUserInputModel inputModel, string token);
 }
