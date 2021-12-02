@@ -13,10 +13,8 @@ public class UserRepository : BaseRepository, IUserRepository
         HttpRequestMessage request = new(HttpMethod.Get, _routingConfigurations.GetGetUserByIdPath(id));
         request.Headers.Authorization = new("Bearer", token);
         HttpResponseMessage response = await Client.CreateClient().SendAsync(request);
-
-        string responseJson = await response.Content.ReadAsStringAsync();
         return response.IsSuccessStatusCode ? new(true)
-            : new(false, await responseJson.FromJsonAsync<ErrorViewModel>());
+            : new(false, await (await response.Content.ReadAsStringAsync()).FromJsonAsync<ErrorViewModel>());
     }
 
     public async Task<HttpLoginResponseViewModel> SignUpAsync(CreateUserInputModel inputModel)
@@ -24,10 +22,11 @@ public class UserRepository : BaseRepository, IUserRepository
         HttpRequestMessage request = new(HttpMethod.Post, _routingConfigurations.GetSignUpPath());
         request.Content = SetRequestContent(inputModel);
         HttpResponseMessage response = await Client.CreateClient().SendAsync(request);
+        var responseJson = await response.Content.ReadAsStringAsync();
 
-        string responseJson = await response.Content.ReadAsStringAsync();
-        return response.StatusCode == HttpStatusCode.Created ? new(true, (await responseJson.FromJsonAsync<LoginResultViewModel>()).Token)
-            : new (false, await responseJson.FromJsonAsync<ErrorViewModel>());
+        return response.StatusCode == HttpStatusCode.Created ? 
+            new(true, (await (await response.Content.ReadAsStringAsync()).FromJsonAsync<LoginResultViewModel>()).Token)
+            : new(false, await (await response.Content.ReadAsStringAsync()).FromJsonAsync<ErrorViewModel>());
     }
 
     public async Task<HttpLoginResponseViewModel> SignInAsync(SignInUserModel inputModel)
@@ -35,17 +34,13 @@ public class UserRepository : BaseRepository, IUserRepository
         HttpRequestMessage request = new(HttpMethod.Post, _routingConfigurations.GetSignInPath());
         request.Content = SetRequestContent(inputModel);
         HttpResponseMessage response = await Client.CreateClient().SendAsync(request);
-
-        string responseJson = await response.Content.ReadAsStringAsync();
-        return response.IsSuccessStatusCode ? new(true, (await responseJson.FromJsonAsync<LoginResultViewModel>()).Token)
-            : new(false, await responseJson.FromJsonAsync<ErrorViewModel>());
+        return response.IsSuccessStatusCode ? 
+            new(true, (await (await response.Content.ReadAsStringAsync()).FromJsonAsync<LoginResultViewModel>()).Token)
+            : new(false, await (await response.Content.ReadAsStringAsync()).FromJsonAsync<ErrorViewModel>());
     }
 
-    public async Task SignOutAsync()
-    {
-        HttpRequestMessage request = new(HttpMethod.Post, _routingConfigurations.GetSignOutPath());
-        HttpResponseMessage response = await Client.CreateClient().SendAsync(request);
-    }
+    public async Task SignOutAsync() 
+        => await Client.CreateClient().SendAsync(new(HttpMethod.Post, _routingConfigurations.GetSignOutPath()));
 
     public async Task<ErrorViewModel> UpdateAsync(CreateUserInputModel inputModel, string token)
     {
@@ -55,6 +50,6 @@ public class UserRepository : BaseRepository, IUserRepository
         HttpResponseMessage response = await Client.CreateClient().SendAsync(request);
 
         return response.IsSuccessStatusCode ? null
-            : await response.Content.ReadAsStringAsync().Result.FromJsonAsync<ErrorViewModel>();
+            : await (await response.Content.ReadAsStringAsync()).FromJsonAsync<ErrorViewModel>();
     }
 }
