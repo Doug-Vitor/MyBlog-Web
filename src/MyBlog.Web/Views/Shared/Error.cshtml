@@ -4,8 +4,10 @@
     ViewData["Title"] = "Erro";
 }
 
+<div>
 <h2 class="text-danger">Não foi possível concluir sua solicitação.</h2>
 @foreach (string error in Model.ErrorsMessages)
 {
     <h3 class="text-danger">@error</h3>
 }
+</div>

@@ -15,7 +15,10 @@ public class HttpContextHelper
 
         ClaimsIdentity identity = new(CookieAuthenticationDefaults.AuthenticationScheme);
         identity.AddClaim(new("BearerToken", token));
-        await _contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new(identity));
+
+        ClaimsPrincipal principal = new(identity);
+        _contextAccessor.HttpContext.User = new(principal);
+        await _contextAccessor.HttpContext.SignInAsync(principal);
     }
 
     public async Task<string> GetAuthenticatedUserToken()

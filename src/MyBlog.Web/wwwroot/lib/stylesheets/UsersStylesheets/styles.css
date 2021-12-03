@@ -1,0 +1,50 @@
+﻿.authentication-form {
+    background-color: rgb(0, 153, 241);
+    color: rgb(255, 255, 255);
+    padding: 60px;
+    border-radius: 12px;
+    box-shadow: 0px 0px 20px rgb(24, 24, 24);
+}
+
+.form-title {
+    display: flex;
+    justify-content: center;
+    margin-top: -10%;
+    margin-bottom: 10%;
+}
+
+.field-div, .button-div {
+    margin-bottom: 12%;
+}
+
+.form-label {
+    margin: 9px
+}
+
+input {
+    display: block;
+    width: 100%;
+    border: 2px solid black;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 8px;
+    margin-top: 8px
+}
+
+.button-div {
+    display: flex;
+    justify-content: center;
+}
+
+.form-button {
+    width: 63%;
+    height: 40px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(0, 170, 241);
+    border: solid 1px rgb(0, 0, 0);
+    border-radius: 5px;
+}
+
+.form-link {
+    text-decoration: underline;
+}

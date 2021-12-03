@@ -1,25 +1,26 @@
-﻿@model SignInUserModel;
+﻿@model SignInUserModel
 
 @{
     ViewData["Title"] = "Entrar";
 }
 
-<div>
-    <h2>Entrar</h2>
-    <form asp-action="SignIn">
-        <div class="form-group">
-            <label asp-for="Username" class="col-form-label"></label>
-            <input class="form-control" asp-for="Username" />
-        </div>
-        <div class="form-group">
-            <label asp-for="Password" class="col-form-label"></label>
-            <input class="form-control" asp-for="Password" />
-        </div>
+<article>
+    <form class="authentication-form" asp-action="SignIn">
+        <h2 class="form-title">@ViewData["Title"]</h2>
 
-        <div class="form-group">
-            <input type="submit" class="btn btn-success" value="Entrar" />
+        <div class="field-div">
+            <label class="form-label" asp-for="Username">Nome de usuário</label>
+            <input asp-for="Username" />
         </div>
+        <div class="field-div">
+            <label class="form-label" asp-for="Password" >Senha</label>
+            <input asp-for="Password" />
+        </div>
+                        
+        <div class="button-div">
+            <button class="form-button">Confirmar</button>
+        </div>
+                        
+        <p>Não possui uma conta? <a class="form-link" asp-controller="Users" asp-action="SignUp">Clique aqui!</a></p>
     </form>
-
-    <p>Não possui um cadastro?<a asp-action="SignUp">Clique aqui!</a></p>
-</div>
+</article>
