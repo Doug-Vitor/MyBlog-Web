@@ -10,7 +10,7 @@ public class UserRepository : BaseRepository, IUserRepository
 
     public async Task<HttpResponseViewModel> GetByIdAsync(int? id, string token)
     {
-        HttpRequestMessage request = new(HttpMethod.Get, _routingConfigurations.GetGetUserByIdPath(id));
+        HttpRequestMessage request = new(HttpMethod.Get, _routingConfigurations.RetrieveGetUserByIdPath(id));
         request.Headers.Authorization = new("Bearer", token);
         HttpResponseMessage response = await Client.CreateClient().SendAsync(request);
         return response.IsSuccessStatusCode ? new(true)
@@ -19,7 +19,7 @@ public class UserRepository : BaseRepository, IUserRepository
 
     public async Task<HttpLoginResponseViewModel> SignUpAsync(CreateUserInputModel inputModel)
     {
-        HttpRequestMessage request = new(HttpMethod.Post, _routingConfigurations.GetSignUpPath());
+        HttpRequestMessage request = new(HttpMethod.Post, _routingConfigurations.SignUpPath);
         request.Content = SetRequestContent(inputModel);
         HttpResponseMessage response = await Client.CreateClient().SendAsync(request);
         var responseJson = await response.Content.ReadAsStringAsync();
@@ -31,7 +31,7 @@ public class UserRepository : BaseRepository, IUserRepository
 
     public async Task<HttpLoginResponseViewModel> SignInAsync(SignInUserModel inputModel)
     {
-        HttpRequestMessage request = new(HttpMethod.Post, _routingConfigurations.GetSignInPath());
+        HttpRequestMessage request = new(HttpMethod.Post, _routingConfigurations.SignInPath);
         request.Content = SetRequestContent(inputModel);
         HttpResponseMessage response = await Client.CreateClient().SendAsync(request);
         return response.IsSuccessStatusCode ? 
@@ -40,11 +40,21 @@ public class UserRepository : BaseRepository, IUserRepository
     }
 
     public async Task SignOutAsync() 
-        => await Client.CreateClient().SendAsync(new(HttpMethod.Post, _routingConfigurations.GetSignOutPath()));
+        => await Client.CreateClient().SendAsync(new(HttpMethod.Post, _routingConfigurations.SignOutPath));
 
-    public async Task<ErrorViewModel> UpdateAsync(CreateUserInputModel inputModel, string token)
+    public async Task<HttpResponseViewModel> GetAuthenticatedUserAsync(string token)
     {
-        HttpRequestMessage request = new(HttpMethod.Patch, _routingConfigurations.GetUpdateUserPath());
+        HttpRequestMessage request = new(HttpMethod.Get, _routingConfigurations.AuthenticatedUserPath);
+        request.Headers.Authorization = new("Bearer", token);
+        HttpResponseMessage response = await Client.CreateClient().SendAsync(request);
+
+        return response.IsSuccessStatusCode ? new(true, await (await response.Content.ReadAsStringAsync()).FromJsonAsync<UserViewModel>())
+            : new(false, await (await response.Content.ReadAsStringAsync()).FromJsonAsync<ErrorViewModel>());
+    }
+
+    public async Task<ErrorViewModel> UpdateAuthenticatedUserAsync(CreateUserInputModel inputModel, string token)
+    {
+        HttpRequestMessage request = new(HttpMethod.Patch, _routingConfigurations.RetrieveUpdateUserPath());
         request.Content = SetRequestContent(inputModel);
         request.Headers.Authorization = new("Bearer", token);
         HttpResponseMessage response = await Client.CreateClient().SendAsync(request);

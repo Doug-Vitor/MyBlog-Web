@@ -10,7 +10,7 @@ public class UserServices : IUserServices
         => (_authenticationRepository, _mapper, _httpContextHelper) = (authenticationRepository, mapper, httpContextHelper);
 
     public async Task<HttpResponseViewModel> GetByIdAsync(int? id) 
-        => await _authenticationRepository.GetByIdAsync(id, await _httpContextHelper.GetAuthenticatedUserToken());
+        => await _authenticationRepository.GetByIdAsync(id, await _httpContextHelper.GetAuthenticatedUserTokenAsync());
 
     public async Task<HttpResponseViewModel> SignUpAsync(CreateUserInputModel inputModel)
     {
@@ -35,6 +35,9 @@ public class UserServices : IUserServices
         await _httpContextHelper.SignOutAuthenticatedUserAsync();
     }
 
-    public async Task<ErrorViewModel> UpdateAsync(CreateUserInputModel inputModel) 
-        => await _authenticationRepository.UpdateAsync(inputModel, await _httpContextHelper.GetAuthenticatedUserToken());
+    public async Task<HttpResponseViewModel> GetAuthenticatedUserAsync() 
+        => await _authenticationRepository.GetAuthenticatedUserAsync(await _httpContextHelper.GetAuthenticatedUserTokenAsync());
+
+    public async Task<ErrorViewModel> UpdateAuthenticatedUserAsync(CreateUserInputModel inputModel) 
+        => await _authenticationRepository.UpdateAuthenticatedUserAsync(inputModel, await _httpContextHelper.GetAuthenticatedUserTokenAsync());
 }

@@ -21,7 +21,7 @@ public class HttpContextHelper
         await _contextAccessor.HttpContext.SignInAsync(principal);
     }
 
-    public async Task<string> GetAuthenticatedUserToken()
+    public async Task<string> GetAuthenticatedUserTokenAsync()
     {
         string token = _contextAccessor.HttpContext.User.FindFirst(claim => claim.Type == "BearerToken").Value;
 

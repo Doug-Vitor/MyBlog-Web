@@ -4,5 +4,6 @@
     Task<HttpResponseViewModel> SignUpAsync(CreateUserInputModel inputModel);
     Task<HttpResponseViewModel> SignInAsync(SignInUserModel inputModel);
     Task SignOutAsync();
-    Task<ErrorViewModel> UpdateAsync(CreateUserInputModel inputModel);
+    Task<HttpResponseViewModel> GetAuthenticatedUserAsync();
+    Task<ErrorViewModel> UpdateAuthenticatedUserAsync(CreateUserInputModel inputModel);
 }
