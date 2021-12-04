@@ -1,0 +1,31 @@
+﻿@model CreateUserInputModel
+
+@{
+    ViewData["Title"] = "Meu perfil";
+}
+
+<form asp-action="Update">
+    <div class="update-form">
+        <h3 class="update-form-title">Meu perfil</h3>
+        <div class="datas-div">
+            <div class="field-div">
+                <label asp-for="Email" class="update-form-label">E-mail</label>
+                <input asp-for="Email" id="form-input-1" class="form-input" readonly/>
+            </div>
+                    
+            <div class="field-div">
+                <label asp-for="Username" class="update-form-label">Nome de usuário</label>
+                <input asp-for="Username" id="form-input-2" class="form-input" readonly />
+            </div>
+                    
+            <div class="field-div">
+                <label asp-for="Email" class="update-form-label">Senha</label>
+                <input asp-for="Password" id="form-input-3" class="form-input" readonly/>
+            </div>
+        </div>
+                    
+        <div id="update-form-buttons-div" class="update-form-buttons-div">
+            <button type="button" id="enable-fields" class="form-button" action="" >Editar</button>
+        </div>
+    </div>
+</form>

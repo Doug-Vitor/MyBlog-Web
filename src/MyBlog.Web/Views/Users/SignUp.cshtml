@@ -4,25 +4,27 @@
     ViewData["Title"] = "Registrar";
 }
 
-<form class="authentication-form" asp-action="SignUp" >
-    <h2 class="form-title">@ViewData["Title"]</h2>
+<article>
+    <form class="authentication-form" asp-action="SignUp" >
+        <h2 class="authentication-form-title">@ViewData["Title"]</h2>
                         
-    <div class="field-div">
-        <label class="form-label"asp-for="Email" >E-mail</label>
-        <input asp-for="Email" />
-    </div>
-    <div class="field-div">
-        <label class="form-label" asp-for="Username">Nome de usuário</label>
-        <input asp-for="Username" />
-    </div>
-    <div class="field-div">
-        <label class="form-label" asp-for="Password" >Senha</label>
-        <input asp-for="Password" />
-    </div>
+        <div class="field-div">
+            <label class="authentication-form-label"asp-for="Email" >E-mail</label>
+            <input class="form-input" asp-for="Email" />
+        </div>
+        <div class="field-div">
+            <label class="authentication-form-label" asp-for="Username">Nome de usuário</label>
+            <input class="form-input" asp-for="Username" />
+        </div>
+        <div class="field-div">
+            <label class="authentication-form-label" asp-for="Password" >Senha</label>
+            <input class="form-input" asp-for="Password" />
+        </div>
                         
-    <div class="button-div">
-        <button class="form-button">Confirmar</button>
-    </div>
+        <div class="button-div">
+            <button class="authentication-form-button">Confirmar</button>
+        </div>
                         
-    <p>Já possui uma conta? <a class="form-link" asp-controller="Users" asp-action="SignIn">Clique aqui!</a></p>
-</form>
+        <p>Já possui uma conta? <a class="authenticationform-link" asp-controller="Users" asp-action="SignIn">Clique aqui!</a></p>
+    </form>
+</article>

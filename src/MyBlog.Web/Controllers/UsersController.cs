@@ -42,13 +42,13 @@ public class UsersController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> MyProfile(int? id)
+    public async Task<IActionResult> MyProfile()
     {
         HttpResponseViewModel responseViewModel = await _userServices.GetAuthenticatedUserAsync();
         return responseViewModel.Success ? View(_mapper.Map<CreateUserInputModel>(responseViewModel.UserViewModel)) : RedirectToErrorAction(responseViewModel.ErrorViewModel);
     }
     
-    [HttpPost("MyProfile/[action]")]
+    [HttpPost]
     public async Task<IActionResult> Update(CreateUserInputModel inputModel)
     {
         ErrorViewModel viewModel = await _userServices.UpdateAuthenticatedUserAsync(inputModel);

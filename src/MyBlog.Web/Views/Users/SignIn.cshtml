@@ -6,21 +6,21 @@
 
 <article>
     <form class="authentication-form" asp-action="SignIn">
-        <h2 class="form-title">@ViewData["Title"]</h2>
+        <h2 class="authentication-form-title">@ViewData["Title"]</h2>
 
         <div class="field-div">
-            <label class="form-label" asp-for="Username">Nome de usuário</label>
-            <input asp-for="Username" />
+            <label class="authentication-form-label" asp-for="Username">Nome de usuário</label>
+            <input class="form-input" asp-for="Username" />
         </div>
         <div class="field-div">
-            <label class="form-label" asp-for="Password" >Senha</label>
-            <input asp-for="Password" />
+            <label class="authentication-form-label" asp-for="Password" >Senha</label>
+            <input class="form-input" asp-for="Password" />
         </div>
                         
         <div class="button-div">
-            <button class="form-button">Confirmar</button>
+            <button class="authentication-form-button">Confirmar</button>
         </div>
                         
-        <p>Não possui uma conta? <a class="form-link" asp-controller="Users" asp-action="SignUp">Clique aqui!</a></p>
+        <p>Não possui uma conta? <a class="authenticationform-link" asp-controller="Users" asp-action="SignUp">Clique aqui!</a></p>
     </form>
 </article>

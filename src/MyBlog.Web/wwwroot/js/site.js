@@ -1,4 +1,13 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿document.getElementById('enable-fields').onclick = function () {
+    document.getElementById("enable-fields").remove();
 
-// Write your JavaScript code.
+    document.getElementById("form-input-1").removeAttribute("readonly");
+    document.getElementById("form-input-2").removeAttribute("readonly");
+    document.getElementById("form-input-3").removeAttribute("readonly");
+
+    var newInput = document.createElement("input")
+    newInput.value = "Confirmar";
+    newInput.className = "form-button form-save-button"
+    newInput.type = "submit";
+    document.getElementById("update-form-buttons-div").appendChild(newInput);
+};

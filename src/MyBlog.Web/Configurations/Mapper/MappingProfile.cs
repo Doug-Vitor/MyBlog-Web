@@ -6,5 +6,6 @@ public class MappingProfile : Profile
     {
         CreateMap<HttpLoginResponseViewModel, HttpResponseViewModel>();
         CreateMap<HttpResponseViewModel, CreateUserInputModel>();
+        CreateMap<UserViewModel, CreateUserInputModel>();
     }
 }

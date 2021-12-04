@@ -18,7 +18,7 @@
                 <div class="nav-right-items">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <a class="nav-item" asp-area="" asp-controller="Users" asp-action="Update">Meu perfil</a>
+                        <a class="nav-item" asp-area="" asp-controller="Users" asp-action="MyProfile">Meu perfil</a>
                         <a class="nav-item" asp-area="" asp-controller="Users" asp-action="SignOut">Sair</a>
                     }
                     else
@@ -31,10 +31,10 @@
     </header>
     <div>
         <main role="main">
-            <article>
-                @RenderBody()
-            </article>
+            @RenderBody()
         </main>
     </div>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 </html>

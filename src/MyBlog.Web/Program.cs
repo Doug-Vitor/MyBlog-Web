@@ -14,6 +14,8 @@ if (!application.Environment.IsDevelopment())
 }
 
 application.UseHttpsRedirection();
+
+application.UseDefaultFiles();
 application.UseStaticFiles();
 
 application.UseRouting();

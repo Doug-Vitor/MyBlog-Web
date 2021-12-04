@@ -1,13 +1,14 @@
 ﻿public class ApiAuthenticationRoutingConfigurations
 {
-    public static Uri BasePath { get; set; }
-    public static Uri AuthenticationPath { get; set; }
+    public Uri BasePath { get; set; }
+    public Uri AuthenticationPath { get; set; }
 
-    public Uri SignUpPath { get; } = new(string.Concat(AuthenticationPath, "SignUp/"));
-    public Uri SignInPath { get; } = new(string.Concat(AuthenticationPath, "SignIn/"));
-    public Uri SignOutPath { get; } = new(string.Concat(AuthenticationPath, "SignOut/"));
-    public Uri AuthenticatedUserPath { get; } = new(string.Concat(AuthenticationPath, "AuthenticatedUser/"));
+    private Uri AuthenticationBasePath => new(string.Concat(BasePath, AuthenticationPath));
+    public Uri SignUpPath => new(string.Concat(AuthenticationBasePath, "SignUp/"));
+    public Uri SignInPath => new(string.Concat(AuthenticationBasePath, "SignIn/"));
+    public Uri SignOutPath => new(string.Concat(AuthenticationBasePath, "SignOut/"));
+    public Uri AuthenticatedUserPath => new(string.Concat(AuthenticationBasePath, "AuthenticatedUser/"));
 
-    public Uri RetrieveGetUserByIdPath(int? userId) => new(string.Concat(AuthenticationPath, $"SignUp/{userId}"));
-    public Uri RetrieveUpdateUserPath() => new(string.Concat(AuthenticationPath, AuthenticatedUserPath, "Update/"));
+    public Uri RetrieveGetUserByIdPath(int? userId) => new(string.Concat(AuthenticationBasePath, $"SignUp/{userId}"));
+    public Uri RetrieveUpdateUserPath() => new(string.Concat(AuthenticatedUserPath, "Update/"));
 }
