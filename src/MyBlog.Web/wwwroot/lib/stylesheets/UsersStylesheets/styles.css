@@ -45,7 +45,16 @@
     border-radius: 5px;
 }
 
-.authentication-form-link {
+.authentication-form-button {
+    width: 63%;
+    height: 40px;
+    color: white;
+    background-color: rgb(0, 121, 173);
+    border: solid 1px white;
+    border-radius: 5px;
+}
+
+.authentication-form-link:link, .authentication-form-link:visited, .authentication-form-link:hover {
     color: white;
     text-decoration: underline;
 }
@@ -72,10 +81,33 @@
     margin-bottom: 40px;
 }
 
+.required::after {
+    content: " *";
+    color: red;
+}
+
+.warning-div {
+    display: flex;
+    margin-bottom: 12px;
+    justify-content: flex-end;
+}
+
+.update-form-warning {
+    width: 60%;
+    color: red;
+    font-size: 14px;
+    text-align: right;
+}
+
 .update-form-buttons-div {
     height: 100%;
     display: flex;
     justify-content: flex-end;
+    align-content: flex-end;
+}
+
+.update-form-button-div {
+    margin-left: 5px;
 }
 
 .form-button {
@@ -87,6 +119,27 @@
     text-decoration: none
 }
 
+    .form-button:hover {
+        padding: 8px 20px;
+        color: white;
+        background-color: rgb(0, 126, 180);
+        border: solid 1px black;
+        border-radius: 5px;
+        text-decoration: none
+    }
+
 .form-save-button {
     background-color: rgb(0, 172, 51);
 }
+
+    .form-save-button:hover {
+        background-color: rgb(1, 145, 44);
+    }
+
+.form-cancel-button {
+    background-color: rgb(187, 23, 23);
+}
+
+    .form-cancel-button:hover {
+        background-color: rgb(150, 18, 18);
+    }
