@@ -8,7 +8,7 @@ public class UserRepository : BaseRepository, IUserRepository
     public UserRepository(IHttpClientFactory client, IOptions<ApiAuthenticationRoutingConfigurations> routingConfigurations)
         : base(client) =>  _routingConfigurations = routingConfigurations.Value;
 
-    public async Task<HttpResponseViewModel> GetByIdAsync(int? id, string token)
+    public async Task<HttpResponseViewModel<UserViewModel>> GetByIdAsync(int? id, string token)
     {
         HttpRequestMessage request = new(HttpMethod.Get, _routingConfigurations.RetrieveGetUserByIdPath(id));
         request.Headers.Authorization = new("Bearer", token);
@@ -42,7 +42,7 @@ public class UserRepository : BaseRepository, IUserRepository
     public async Task SignOutAsync() 
         => await Client.CreateClient().SendAsync(new(HttpMethod.Post, _routingConfigurations.SignOutPath));
 
-    public async Task<HttpResponseViewModel> GetAuthenticatedUserAsync(string token)
+    public async Task<HttpResponseViewModel<UserViewModel>> GetAuthenticatedUserAsync(string token)
     {
         HttpRequestMessage request = new(HttpMethod.Get, _routingConfigurations.AuthenticatedUserPath);
         request.Headers.Authorization = new("Bearer", token);

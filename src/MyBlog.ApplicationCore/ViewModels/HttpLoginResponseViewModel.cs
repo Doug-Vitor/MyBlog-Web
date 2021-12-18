@@ -1,4 +1,4 @@
-﻿public class HttpLoginResponseViewModel : HttpResponseViewModel
+﻿public class HttpLoginResponseViewModel : HttpResponseViewModel<UserViewModel>
 {
     public string GeneratedToken { get; set; }
 

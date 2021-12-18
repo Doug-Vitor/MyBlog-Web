@@ -1,9 +1,9 @@
 ﻿public interface IUserServices
 {
-    Task<HttpResponseViewModel> GetByIdAsync(int? id);
-    Task<HttpResponseViewModel> SignUpAsync(CreateUserInputModel inputModel);
-    Task<HttpResponseViewModel> SignInAsync(SignInUserModel inputModel);
+    Task<HttpResponseViewModel<UserViewModel>> GetByIdAsync(int? id);
+    Task<HttpResponseViewModel<UserViewModel>> SignUpAsync(CreateUserInputModel inputModel);
+    Task<HttpResponseViewModel<UserViewModel>> SignInAsync(SignInUserModel inputModel);
     Task SignOutAsync();
-    Task<HttpResponseViewModel> GetAuthenticatedUserAsync();
+    Task<HttpResponseViewModel<UserViewModel>> GetAuthenticatedUserAsync();
     Task<ErrorViewModel> UpdateAuthenticatedUserAsync(CreateUserInputModel inputModel);
 }
