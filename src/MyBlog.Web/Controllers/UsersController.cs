@@ -11,8 +11,8 @@ public class UsersController : Controller
 
     public async Task<IActionResult> GetById(int? id)
     {
-        HttpResponseViewModel responseViewModel = await _userServices.GetByIdAsync(id);
-        return responseViewModel.Success ? View(responseViewModel.UserViewModel) : RedirectToErrorAction(responseViewModel.ErrorViewModel);
+        HttpResponseViewModel<UserViewModel> responseViewModel = await _userServices.GetByIdAsync(id);
+        return responseViewModel.Success ? View(responseViewModel.ViewModel) : RedirectToErrorAction(responseViewModel.ErrorViewModel);
     }
 
     [HttpGet]
@@ -21,7 +21,7 @@ public class UsersController : Controller
     [HttpPost]
     public async Task<IActionResult> SignUp(CreateUserInputModel inputModel)
     {
-        HttpResponseViewModel responseViewModel = await _userServices.SignUpAsync(inputModel);
+        HttpResponseViewModel<UserViewModel> responseViewModel = await _userServices.SignUpAsync(inputModel);
         return responseViewModel.Success ? RedirectToHomeIndex() : RedirectToErrorAction(responseViewModel.ErrorViewModel);
     }
 
@@ -30,8 +30,8 @@ public class UsersController : Controller
 
     [HttpPost]
     public async Task<IActionResult> SignIn(SignInUserModel inputModel)
-    {
-        HttpResponseViewModel responseViewModel = await _userServices.SignInAsync(inputModel);
+   {
+        HttpResponseViewModel<UserViewModel> responseViewModel = await _userServices.SignInAsync(inputModel);
         return responseViewModel.Success ? RedirectToHomeIndex() : RedirectToErrorAction(responseViewModel.ErrorViewModel);
     }
 
@@ -44,8 +44,8 @@ public class UsersController : Controller
     [HttpGet]
     public async Task<IActionResult> MyProfile()
     {
-        HttpResponseViewModel responseViewModel = await _userServices.GetAuthenticatedUserAsync();
-        return responseViewModel.Success ? View(_mapper.Map<CreateUserInputModel>(responseViewModel.UserViewModel)) : RedirectToErrorAction(responseViewModel.ErrorViewModel);
+        HttpResponseViewModel<UserViewModel> responseViewModel = await _userServices.GetAuthenticatedUserAsync();
+        return responseViewModel.Success ? View(_mapper.Map<CreateUserInputModel>(responseViewModel.ViewModel)) : RedirectToErrorAction(responseViewModel.ErrorViewModel);
     }
     
     [HttpPost]

@@ -30,7 +30,7 @@ public class PostRepository : BaseRepository, IPostRepository
         new(true, await (await (await Client.CreateClient().SendAsync(new(HttpMethod.Get, _routingConfigurations.AllPostsPath))).Content.ReadAsStringAsync())
         .FromJsonAsync<IEnumerable<PostViewModel>>());
 
-    public async Task<ErrorViewModel> UpdateAsync(int? postId, CreateUserInputModel updatedInputModel, string token)
+    public async Task<ErrorViewModel> UpdateAsync(int? postId, CreatePostInputModel updatedInputModel, string token)
     {
         HttpRequestMessage request = new(HttpMethod.Patch, _routingConfigurations.RetrieveEditPostPath(postId));
         request.Headers.Authorization = new("Bearer", token);

@@ -8,7 +8,15 @@ namespace BetterNews.Web.Controllers
 
         public HomeController(IPostServices postServices) => _postServices = postServices;
 
-        public async Task<IActionResult> Index() => View(await _postServices.GetAllAsync());
+        public async Task<IActionResult> Index()
+        {
+            HttpResponseViewModel<IEnumerable<PostViewModel>> result = await _postServices.GetAllAsync();
+            if (result.Success)
+                return View(new Tuple<CreatePostInputModel, IEnumerable<PostViewModel>>(new(), result.ViewModel));
+
+            return RedirectToAction(nameof(Error), result.ErrorViewModel);
+        }
+
         public IActionResult Error(ErrorViewModel viewModel) => View(viewModel);
     }
 }

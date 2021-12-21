@@ -1,0 +1,16 @@
+﻿@model IEnumerable<PostViewModel>
+
+@foreach (PostViewModel viewModel in Model)
+{
+    <div class="post-div">
+        <div class="post-infos-div">
+            <p class="author">@viewModel.AuthorUsername</p>
+            @*<p class="elapsed-time"></p>*@
+        </div>
+
+        <p class="post-content">@viewModel.Content</p>
+        <div class="post-more-infos-div">
+            <a class="post-more-infos" asp-action="GetById" asp-route-postId="@viewModel.Id">Mais informações</a>
+        </div>
+    </div>
+}

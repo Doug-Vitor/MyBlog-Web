@@ -31,7 +31,7 @@ public class UserRepository : BaseRepository, IUserRepository
 
     public async Task<HttpLoginResponseViewModel> SignInAsync(SignInUserModel inputModel)
     {
-        HttpRequestMessage request = new(HttpMethod.Post, _routingConfigurations.SignInPath);
+        HttpRequestMessage request = new(HttpMethod.Put, _routingConfigurations.SignInPath);
         request.Content = SetRequestContent(inputModel);
         HttpResponseMessage response = await Client.CreateClient().SendAsync(request);
         return response.IsSuccessStatusCode ? 
@@ -40,7 +40,7 @@ public class UserRepository : BaseRepository, IUserRepository
     }
 
     public async Task SignOutAsync() 
-        => await Client.CreateClient().SendAsync(new(HttpMethod.Post, _routingConfigurations.SignOutPath));
+        => await Client.CreateClient().SendAsync(new(HttpMethod.Put, _routingConfigurations.SignOutPath));
 
     public async Task<HttpResponseViewModel<UserViewModel>> GetAuthenticatedUserAsync(string token)
     {

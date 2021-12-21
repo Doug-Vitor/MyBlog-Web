@@ -1,1 +1,18 @@
-﻿
+﻿@model Tuple<CreatePostInputModel, IEnumerable<PostViewModel>>
+
+@{
+    ViewData["Title"] = "Início";
+}
+
+@if (User.Identity.IsAuthenticated) 
+{
+    <div class="post-form-div-1">
+        <p class="post-form-title">Criar publicação</p>
+        <div class="post-form-div-2">
+            <span class="input post-input" role="textbox" contenteditable="" asp-for="Item1.Content" />
+            <input class="form-button post-save-button" type="submit" value="Confirmar" />
+        </div>
+    </div>
+}
+
+<partial name="_PostPartial" for="Item2"></partial>
