@@ -4,8 +4,8 @@
 {
     <div class="post-div">
         <div class="post-infos-div">
-            <p class="author">@viewModel.AuthorUsername</p>
-            @*<p class="elapsed-time"></p>*@
+            <p class="author">Por @viewModel.AuthorUsername</p>
+            <p class="elapsed-time">@viewModel.GetCreatedDate()</p>
         </div>
 
         <p class="post-content">@viewModel.Content</p>

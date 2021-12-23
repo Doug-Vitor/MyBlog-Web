@@ -14,8 +14,7 @@ public class PostsController : Controller
             return RedirectToAction(nameof(GetById), new { id = viewModel.ViewModel.Id });
         else return RedirectToAction("Error", "Home");
     }
-
-
+    
     [HttpGet]
     public async Task<IActionResult> GetById(int? id)
     {
