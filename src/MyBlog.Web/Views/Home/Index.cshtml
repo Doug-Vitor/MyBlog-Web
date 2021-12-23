@@ -6,13 +6,15 @@
 
 @if (User.Identity.IsAuthenticated) 
 {
-    <div class="post-form-div-1">
-        <p class="post-form-title">Criar publicação</p>
-        <div class="post-form-div-2">
-            <span class="input post-input" role="textbox" contenteditable="" asp-for="Item1.Content" />
-            <input class="form-button post-save-button" type="submit" value="Confirmar" />
+    <form method="post" asp-controller="Posts" asp-action="Create">
+        <div class="post-form-div-1">
+            <p class="post-form-title">Criar publicação</p>
+            <div class="post-form-div-2">
+                <textarea class="post-input" name="Content" placeholder="Escreva algo..." rows="6"></textarea>
+                <input type="submit" class="form-button post-save-button" value="Confirmar" />
+            </div>
         </div>
-    </div>
+    </form>
 }
 
 <partial name="_PostPartial" for="Item2"></partial>

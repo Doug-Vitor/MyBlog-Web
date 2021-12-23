@@ -45,7 +45,7 @@ function adjustFieldsToEdit() {
     cancelButton.addEventListener('click', () => avoidFieldsFromEdit());
     cancelButtonDiv.appendChild(cancelButton);
     buttonsDiv.appendChild(cancelButtonDiv);
-};
+}
 
 function avoidFieldsFromEdit() {
     document.getElementById("form-input-1").setAttribute("readonly", true);
@@ -74,4 +74,4 @@ function avoidFieldsFromEdit() {
     editButton.id = "edit-profile-button"
     editButton.addEventListener('click', () => adjustFieldsToEdit());
     buttonsDiv.appendChild(editButton);
-};
+}

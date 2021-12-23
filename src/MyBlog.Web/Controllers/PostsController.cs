@@ -15,6 +15,7 @@ public class PostsController : Controller
         else return RedirectToAction("Error", "Home");
     }
 
+
     [HttpGet]
     public async Task<IActionResult> GetById(int? id)
     {
@@ -30,7 +31,7 @@ public class PostsController : Controller
         else return RedirectToAction("Error", "Home", viewModel);
     }
 
-    public async Task<RedirectToActionResult> Delete(int? id, CreatePostInputModel updatedInputModel)
+    public async Task<RedirectToActionResult> Delete(int? id)
     {
         ErrorViewModel viewModel = await _postServices.RemoveAsync(id);
         if (viewModel is null) return RedirectToAction("Index", "Home");

@@ -12,7 +12,7 @@ namespace BetterNews.Web.Controllers
         {
             HttpResponseViewModel<IEnumerable<PostViewModel>> result = await _postServices.GetAllAsync();
             if (result.Success)
-                return View(new Tuple<CreatePostInputModel, IEnumerable<PostViewModel>>(new(), result.ViewModel));
+                return View(new Tuple<CreatePostInputModel, IEnumerable<PostViewModel>>(new(string.Empty), result.ViewModel));
 
             return RedirectToAction(nameof(Error), result.ErrorViewModel);
         }
