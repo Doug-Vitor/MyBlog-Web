@@ -7,7 +7,7 @@
 <form asp-action="Update">
     <div id="update-form" class="update-form">
         <h3 id="form-title" class="update-form-title">Meu perfil</h3>
-        <div class="datas-div">
+        <div id="datas-div" class="datas-div">
             <div class="field-div">
                 <label asp-for="Email" id="form-label-1" class="update-form-label">E-mail</label>
                 <input asp-for="Email" id="form-input-1" class="form-input" readonly/>
@@ -29,6 +29,9 @@
         </div>
     </div>
 </form>
+
+
+
 
 <script>
     document.getElementById("edit-profile-button").addEventListener('click', () => adjustFieldsToEdit());

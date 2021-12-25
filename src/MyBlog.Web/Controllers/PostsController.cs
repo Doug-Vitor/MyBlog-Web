@@ -19,7 +19,8 @@ public class PostsController : Controller
     public async Task<IActionResult> GetById(int? id)
     {
         HttpResponseViewModel<PostViewModel> viewModel = await _postServices.GetByIdAsync(id);
-        if (viewModel.Success) return View(viewModel.ViewModel);
+        if (viewModel.Success) 
+            return PartialView("_FullPostsPartial", new Tuple<CreatePostInputModel, IEnumerable<PostViewModel>>(new(), new List<PostViewModel>() { viewModel.ViewModel }));
         else return RedirectToAction("Error", "Home", viewModel.ErrorViewModel);
     }
 

@@ -29,7 +29,7 @@
     border-radius: 4px;
     box-shadow: 2px 2px 10px rgb(189, 189, 189);
     outline: none;
-    resize:none;
+    resize: none;
 }
 
 .post-save-button {
@@ -54,11 +54,10 @@
 }
 
 .post-infos-div {
+    display: flex;
     margin-bottom: 20px;
-}
-
-.author {
-
+    align-items: center;
+    justify-content: space-between;
 }
 
 .elapsed-time {
@@ -66,7 +65,41 @@
     color: rgb(163, 163, 163);
 }
 
+.post-actions-top-div {
+    display: flex;
+    width: 8%;
+    justify-content: end;
+}
+
+.action-button {
+    background-color: inherit;
+    border-style: none;
+    text-align: center;
+}
+
+.action-tip {
+    visibility: hidden;
+    width: 80px;
+    background-color: rgba(172, 172, 172, 0.534);
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    box-shadow: 2px 2px 10px rgb(189, 189, 189);
+}
+
+.action-button:hover .action-tip {
+    visibility: visible;
+}
+
 .post-content {
+    margin-bottom: 20px;
+}
+
+.update-post-buttons-div {
+    display: flex;
+    justify-content: flex-end;
     margin-bottom: 12px;
 }
 
@@ -81,6 +114,56 @@
     text-align: center;
 }
 
-.post-more-infos:hover {
+    .post-more-infos:hover {
+        text-decoration: underline;
+    }
+
+.post-actions-bottom-div {
+    margin: 8px 0 8px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.action-button-div {
+    display: flex;
+    flex-basis: 50%;
+    justify-content: center;
+}
+
+.action-button:hover {
+    cursor: pointer;
+    color: rgb(8, 0, 128);
     text-decoration: underline;
 }
+
+.post-comments {
+    margin-top: 20px;
+}
+
+.comment-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.input-comment, .input-comment:hover {
+    padding: 4px;
+    border-radius: 5px;
+    flex-basis: 80%;
+    border: 1px solid rgb(118, 118, 118);
+    outline: none;
+    resize: none;
+}
+
+.save-comment {
+    flex-basis: 15%;
+    padding: 4px;
+    border-radius: 5px;
+    color: white;
+    background-color: rgb(0, 172, 51);
+    border: 1px solid rgb(118, 118, 118);
+}
+
+    .save-comment:hover {
+        background-color: rgb(1, 145, 44);
+    }

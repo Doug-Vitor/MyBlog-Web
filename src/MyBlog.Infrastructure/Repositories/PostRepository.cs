@@ -26,9 +26,13 @@ public class PostRepository : BaseRepository, IPostRepository
             : new(false, await (await response.Content.ReadAsStringAsync()).FromJsonAsync<ErrorViewModel>());
     }
 
-    public async Task<HttpResponseViewModel<IEnumerable<PostViewModel>>> GetAllAsync() => 
-        new(true, await (await (await Client.CreateClient().SendAsync(new(HttpMethod.Get, _routingConfigurations.AllPostsPath))).Content.ReadAsStringAsync())
-        .FromJsonAsync<IEnumerable<PostViewModel>>());
+    public async Task<HttpResponseViewModel<IEnumerable<PostViewModel>>> GetAllAsync()
+    {
+        HttpRequestMessage request = new(HttpMethod.Get, _routingConfigurations.AllPostsPath);
+        HttpResponseMessage response = await Client.CreateClient().SendAsync(request);
+        return response.IsSuccessStatusCode ? new(true, await (await response.Content.ReadAsStringAsync()).FromJsonAsync<IEnumerable<PostViewModel>>())
+            : new(false, await (await response.Content.ReadAsStringAsync()).FromJsonAsync<ErrorViewModel>());
+    }
 
     public async Task<ErrorViewModel> UpdateAsync(int? postId, CreatePostInputModel updatedInputModel, string token)
     {

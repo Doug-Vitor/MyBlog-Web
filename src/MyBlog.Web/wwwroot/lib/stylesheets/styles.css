@@ -64,6 +64,10 @@ article {
     align-items: center;
 }
 
+.hidden {
+    visibility: hidden;
+}
+
 h2.text-danger {
     margin-bottom: 14px;
 }

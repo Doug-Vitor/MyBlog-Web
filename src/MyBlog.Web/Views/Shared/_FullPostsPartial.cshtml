@@ -1,0 +1,57 @@
+﻿@model Tuple<CreatePostInputModel, IEnumerable<PostViewModel>>
+@inject IPostHelper postHelper;
+
+@{
+    Layout = "_Layout";
+}
+
+@foreach (PostViewModel viewModel in Model.Item2)
+{
+    <div class="post-div">
+        <div class="post-infos-div">
+            <div>
+                <p class="author">Por @viewModel.AuthorUsername</p>
+                <p class="elapsed-time">@viewModel.GetCreatedDate()</p>
+            </div>
+
+            @if (postHelper.IsPostOwner(viewModel))
+            {
+                <div id="@string.Concat("post-", viewModel.Id, "-actions-top-div")" class="post-actions-top-div">
+                    <div class="action-button-div">
+                    <button class="action-button" onclick="adjustPostToEdit(@viewModel.Id)">
+                        <img src="https://img.icons8.com/small/16/000000/edit.png" />
+                        <span class="action-tip">Editar</span>
+                    </button>
+                </div>
+                <div class="action-button-div">
+                    <button class="action-button">
+                        <img src="https://img.icons8.com/small/16/000000/delete-sign.png" />
+                        <span class="action-tip">Remover</span>
+                    </button>  
+                </div>
+            </div>
+            }
+        </div>
+
+        <div id="@string.Concat("post-", viewModel.Id, "-content-div")">
+            <p id="@string.Concat("post-", viewModel.Id, "-content")" class="post-content">@viewModel.Content</p>
+        </div>
+
+        <hr class="default-divisor">
+        <div class="post-actions-bottom-div">
+            <div class="action-button-div">
+                <button class="action-button">Curtir</button>
+            </div>
+            <div class="action-button-div">
+                <button class="action-button">Compartilhar</button>
+            </div>
+        </div>
+        <hr class="default-divisor">
+        <div class="post-comments">
+            <div class="comment-form">
+                <textarea class="input-comment" rows="1" placeholder="Escreva um comentário"></textarea>
+                <input class="save-comment" type="submit" />
+            </div>
+        </div>
+    </div>
+}

@@ -1,16 +1,41 @@
-﻿@model IEnumerable<PostViewModel>
+﻿@model Tuple<CreatePostInputModel, IEnumerable<PostViewModel>>
+@inject IPostHelper postHelper;
 
-@foreach (PostViewModel viewModel in Model)
+
+@foreach (PostViewModel viewModel in Model.Item2)
 {
     <div class="post-div">
         <div class="post-infos-div">
-            <p class="author">Por @viewModel.AuthorUsername</p>
-            <p class="elapsed-time">@viewModel.GetCreatedDate()</p>
+            <div>
+                <p class="author">Por @viewModel.AuthorUsername</p>
+                <p class="elapsed-time">@viewModel.GetCreatedDate()</p>
+            </div>
+
+            @if (postHelper.IsPostOwner(viewModel))
+            {
+                <div id="@string.Concat("post-", viewModel.Id, "-actions-top-div")" class="post-actions-top-div">
+                    <div class="action-button-div">
+                        <button class="action-button" onclick="adjustPostToEdit(@viewModel.Id)">
+                            <img src="https://img.icons8.com/small/16/000000/edit.png" />
+                            <span class="action-tip">Editar</span>
+                        </button>
+                    </div>
+                    <div class="action-button-div">
+                        <button class="action-button" onclick="deletePost(@viewModel.Id)">
+                            <img src="https://img.icons8.com/small/16/000000/delete-sign.png" />
+                            <span class="action-tip">Remover</span>
+                        </button>  
+                    </div>
+                </div>
+            }
         </div>
 
-        <p class="post-content">@viewModel.Content</p>
+        <div id="@string.Concat("post-", viewModel.Id, "-content-div")">
+            <p id="@string.Concat("post-", viewModel.Id, "-content")" class="post-content">@viewModel.Content</p>
+        </div>
+
         <div class="post-more-infos-div">
-            <a class="post-more-infos" asp-action="GetById" asp-route-postId="@viewModel.Id">Mais informações</a>
+            <a class="post-more-infos" asp-controller="Posts" asp-action="GetById" asp-route-id="@viewModel.Id">Mais informações</a>
         </div>
     </div>
 }
