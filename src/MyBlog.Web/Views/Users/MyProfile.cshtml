@@ -9,18 +9,18 @@
         <h3 id="form-title" class="update-form-title">Meu perfil</h3>
         <div id="datas-div" class="datas-div">
             <div class="field-div">
-                <label asp-for="Email" id="form-label-1" class="update-form-label">E-mail</label>
-                <input asp-for="Email" id="form-input-1" class="form-input" readonly/>
+                <label asp-for="Email" class="update-form-label">E-mail</label>
+                <input asp-for="Email" class="form-input" readonly/>
             </div>
                     
             <div class="field-div">
-                <label asp-for="Username" id="form-label-2" class="update-form-label">Nome de usuário</label>
-                <input asp-for="Username" id="form-input-2" class="form-input" readonly />
+                <label asp-for="Username" class="update-form-label">Nome de usuário</label>
+                <input asp-for="Username" class="form-input" readonly />
             </div>
                     
             <div class="field-div">
                 <label asp-for="Email" class="update-form-label">Senha</label>
-                <input asp-for="Password" id="form-input-3" class="form-input" readonly/>
+                <input asp-for="Password" class="form-input" readonly/>
             </div>
         </div>
 
@@ -29,9 +29,6 @@
         </div>
     </div>
 </form>
-
-
-
 
 <script>
     document.getElementById("edit-profile-button").addEventListener('click', () => adjustFieldsToEdit());

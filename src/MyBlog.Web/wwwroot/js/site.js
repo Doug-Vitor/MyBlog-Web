@@ -8,7 +8,22 @@ function getElementById(id) {
 }
 
 /**
- * Removes all div's children and return it.
+ * Append multiple elements to the specified parent div.
+ * @param {HTMLElement} parentDiv The parent div.
+ * @param {HTMLCollectionOf<HTMLElement>} children The children.
+ */
+function appendChildren(parentDiv, children) {
+    if (parentDiv == null || children == null) {
+        return;
+    }
+
+    for (var count = 0; count < children.length; count++) {
+        parentDiv.appendChild(children[count]);
+    }
+}
+
+/**
+ * Removes all div's children and return the parent div.
  * @param {string} id The div's id.
  * @returns {HTMLElement}
  */
@@ -42,15 +57,13 @@ function getBaseUrl() {
     return window.location.origin;
 }
 
-/* Bad practises bellow. It'll be fixed. */
+/**
+ * Adjust the profile page to update the authenticated user.
+ * */
 function adjustFieldsToEdit() {
-    getElementById("form-input-1").removeAttribute('readonly');
-    getElementById("form-input-2").removeAttribute('readonly');
-    getElementById("form-input-3").removeAttribute('readonly');
-    getElementById("form-label-1").className += " required";
-    getElementById("form-label-2").className += " required";
-    var formTitle = getElementById("form-title");
-    formTitle.textContent = "Editar perfil";
+    adjustFieldsDivToEdit();
+
+    getElementById("form-title").textContent = "Editar perfil";
 
     var buttonsDiv = removeDivChildren('buttons-div');
     buttonsDiv.remove();
@@ -62,38 +75,57 @@ function adjustFieldsToEdit() {
     warningDiv.appendChild(warning);
 
     var mainDiv = getElementById("update-form");
-    mainDiv.appendChild(warningDiv);
-    mainDiv.appendChild(buttonsDiv);
+    appendChildren(mainDiv, [warningDiv, buttonsDiv]);
 
     var saveButtonDiv = createElement('div', 'update-form-button-div');
     var saveButton = createElement('input', 'form-button form-save-button');
     saveButton.type = "submit";
     saveButton.value = "Confirmar";
     saveButtonDiv.appendChild(saveButton);
-    buttonsDiv.appendChild(saveButtonDiv);
 
     var cancelButtonDiv = createElement('div', 'update-form-button-div');
-    var cancelButton = document.createElement('button', 'form-button form-cancel-button');
+    var cancelButton = createElement('button', 'form-button form-cancel-button');
     cancelButton.type = "button";
     cancelButton.textContent = "Cancelar";
     cancelButton.addEventListener('click', () => avoidFieldsFromEdit());
+
     cancelButtonDiv.appendChild(cancelButton);
-    buttonsDiv.appendChild(cancelButtonDiv);
+    appendChildren(buttonsDiv, [saveButtonDiv, cancelButtonDiv]);
 }
 
+/**
+ * Remove input's readonly attributes and set required class to labels.
+ * */
+function adjustFieldsDivToEdit() {
+    var datasDivChildren = getElementById('datas-div').children;
+
+    for (var count1 = 0; count1 < datasDivChildren.length; count1++) {
+        var fieldDivChildren = datasDivChildren[count1].children;
+
+        for (var count2 = 0; count2 < fieldDivChildren.length; count2++) {
+            var child = fieldDivChildren[count2];
+            var childTagName = child.tagName.toLowerCase();
+
+            if (childTagName === 'input') {
+                child.removeAttribute('readonly');
+            } else if (childTagName === 'label') {
+                child.className += ' required';
+            }
+        }
+    }
+}
+
+/**
+ * Adjust the profile page to avoid the update to authenticated user.
+ * */
 function avoidFieldsFromEdit() {
-    document.getElementById("form-input-1").setAttribute("readonly", true);
-    document.getElementById("form-input-2").setAttribute("readonly", true);
-    document.getElementById("form-input-3").setAttribute("readonly", true);
-    document.getElementById("form-label-1").className = "form-input-label";
-    document.getElementById("form-label-2").className = "form-input-label";
-    var formTitle = getElementById("form-title");
-    formTitle.textContent = "Meu perfil";
+    avoidFieldsDivFromEdit();
+    getElementById("form-title").textContent = "Meu perfil";;
 
     var warningDiv = removeDivChildren('warning-div');
     warningDiv.remove();
 
-    removeDivChildren('buttons-div');
+    var buttonsDiv = removeDivChildren('buttons-div');
 
     var editButton = createElement('button', 'form-button');
     editButton.textContent = "Editar";
@@ -102,7 +134,28 @@ function avoidFieldsFromEdit() {
     editButton.addEventListener('click', () => adjustFieldsToEdit());
     buttonsDiv.appendChild(editButton);
 }
-/* Until here */
+
+/**
+ * Set input fields with readonly attributes and remove label's required class.
+ * */
+function avoidFieldsDivFromEdit() {
+    var datasDivChildren = getElementById('datas-div').children;
+
+    for (var count1 = 0; count1 < datasDivChildren.length; count1++) {
+        var fieldDivChildren = datasDivChildren[count1].children;
+
+        for (var count2 = 0; count2 < fieldDivChildren.length; count2++) {
+            var child = fieldDivChildren[count2];
+            var childTagName = child.tagName.toLowerCase();
+
+            if (childTagName === 'input') {
+                child.setAttribute('readonly', true);
+            } else if (childTagName === 'label') {
+                child.className = 'form-input-label';
+            }
+        }
+    }
+}
 
 /**
  * Enable post inputs to edit.
@@ -136,12 +189,9 @@ function adjustPostToEdit(id) {
     cancelButton.type = 'button';
     cancelButton.addEventListener('click', () => avoidPostFromEdit(id.valueOf()));
 
-    buttonsDiv.appendChild(submitButton);
-    buttonsDiv.appendChild(cancelButton);
-
-    updatePostForm.appendChild(textArea);
-    updatePostForm.appendChild(buttonsDiv);
-    getElementById(String.prototype.concat('post-', id, '-content-div')).appendChild(updatePostForm);
+    appendChildren(buttonsDiv, [submitButton, cancelButton]);
+    appendChildren(updatePostForm, [textArea, buttonsDiv]);
+    appendChildren(getElementById(String.prototype.concat('post-', id, '-content-div')), [updatePostForm]);
 }
 
 /**
