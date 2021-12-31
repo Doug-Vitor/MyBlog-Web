@@ -7,5 +7,5 @@ public class PostHelper : IPostHelper
     public PostHelper(IUserServices userServices, IHttpContextAccessor contextAccessor) =>
         _authenticatedUserName = contextAccessor.HttpContext.User.Identity.IsAuthenticated ? userServices.GetAuthenticatedUserAsync().Result.ViewModel.Username : null;
 
-    public bool IsPostOwner(PostViewModel viewModel) => viewModel.AuthorUsername == _authenticatedUserName;
+    public bool IsPostOwner(PostViewModel viewModel) => viewModel.AuthorInfos.Username == _authenticatedUserName;
 }

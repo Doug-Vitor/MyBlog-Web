@@ -1,13 +1,12 @@
 ﻿@model Tuple<CreatePostInputModel, IEnumerable<PostViewModel>>
 @inject IPostHelper postHelper;
 
-
 @foreach (PostViewModel viewModel in Model.Item2)
 {
     <div class="post-div">
         <div class="post-infos-div">
             <div>
-                <p class="author">Por @viewModel.AuthorUsername</p>
+                <p class="author">Por @viewModel.AuthorInfos.Username</p>
                 <p class="elapsed-time">@viewModel.GetCreatedDate()</p>
             </div>
 
